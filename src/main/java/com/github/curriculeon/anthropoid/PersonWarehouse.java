@@ -4,6 +4,8 @@ import com.github.curriculeon.tools.logging.LoggerHandler;
 import com.github.curriculeon.tools.logging.LoggerWarehouse;
 import com.github.curriculeon.tools.ReflectionUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -45,7 +47,7 @@ public final class PersonWarehouse implements Iterable<Person> {
      */ //TODO
     public Stream<Person> getUniquelyNamedPeople() {
 
-        List<Person> uniquelyNamedPeople = new ArrayList<>();
+        List<Person> uniquelyNamedPeople = new LinkedList<>();
 
         Map<String, List<Person>> peopleByName = people.stream().collect(
                 Collectors.groupingBy(Person::getName));
@@ -53,12 +55,18 @@ public final class PersonWarehouse implements Iterable<Person> {
         peopleByName
                 .values()
                 .stream()
-                .filter(peopleWithSameName -> peopleWithSameName.size() == 1)
+                //.filter(peopleWithSameName -> peopleWithSameName.size() == 1)
                 .forEach(
-                        peopleWithSameName -> uniquelyNamedPeople.add(peopleWithSameName.get(0)));
+                        record -> uniquelyNamedPeople.add(record.get(0)));
         return uniquelyNamedPeople.parallelStream();
     }
 
+    public Map<String, List<Person>> test()
+    {
+        Map<String, List<Person>> peopleByName = people.stream().collect(
+                Collectors.groupingBy(Person::getName));
+        return peopleByName;
+    }
 
     /**
      * @param character starting character of Person objects' name
@@ -128,5 +136,52 @@ public final class PersonWarehouse implements Iterable<Person> {
     @Override // DO NOT MODIFY
     public Iterator<Person> iterator() {
         return people.iterator();
+    }
+
+    public static void main(String [] args)
+    {
+        /*String [] aliases = new String[]{"alias1", "alias2"};
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Person person = new Person("john", true, 1L, format.parse("2000-06-30"), aliases);
+            Person person1 = new Person("susan", false, 2L, format.parse("2000-05-20"), aliases);
+            Person person2 = new Person("alice", false, 3L, format.parse("2000-04-20"), aliases);
+            Person person3 = new Person("eve", false, 4L, format.parse("1999-05-20"), aliases);
+            Person person4 = new Person("eve", false, 5L, format.parse("1999-05-20"), aliases);
+
+
+            PersonWarehouse people = new PersonWarehouse();
+            people.addPerson(person);
+            people.addPerson(person1);
+            people.addPerson(person2);
+            people.addPerson(person3);
+            people.addPerson(person4);
+
+            //people.getUniquelyNamedPeople().forEach(p -> System.out.println(p.getName()));
+        }catch (ParseException pe)
+        {
+            pe.printStackTrace();
+        }*/
+        PersonWarehouse warehouse;
+        PersonFactory factory;
+        factory = new PersonFactory();
+        warehouse = new PersonWarehouse();
+
+        Map<String, List<Person>> map = new LinkedHashMap<>();
+
+        Stream
+                .generate(factory::createRandomPerson)
+                .limit(9999)
+                .forEach(warehouse::addPerson);
+
+        map = warehouse.test();
+        Set<String> names = map.keySet();
+
+        for(int i = 0; i < map.size(); i++)
+            if(map.get(names.toArray()[i]).size() > 1)
+                System.out.println(map.get(names.toArray()[i]));
+
+
     }
 }

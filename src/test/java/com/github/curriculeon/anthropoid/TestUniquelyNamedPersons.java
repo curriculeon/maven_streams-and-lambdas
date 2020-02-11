@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -79,7 +80,7 @@ public class TestUniquelyNamedPersons {
 
     private List<String> deriveUniqueNames(PersonWarehouse warehouse) {
         // derive unique names
-        List<String> expectedList = new ArrayList<>();
+        List<String> expectedList = new LinkedList<>();
         for (Person person : warehouse) {
             String personName = person.getName();
             Boolean isUnique = !expectedList.contains(personName);
