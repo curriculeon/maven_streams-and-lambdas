@@ -31,7 +31,7 @@ public final class PersonWarehouse implements Iterable<Person> {
 
     /**
      * @return list of names of Person objects
-     */ // TODO
+     */
     public List<String> getNames() {
         return people.stream().map(Person::getName).collect(Collectors.toList());
     }
@@ -44,8 +44,7 @@ public final class PersonWarehouse implements Iterable<Person> {
         var names = new HashSet<>();
         return people.stream().filter(person -> names.add(person.getName()));
     }
-
-
+    
     /**
      * @param character starting character of Person objects' name
      * @return a Stream of respective
