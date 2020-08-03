@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -35,7 +36,11 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return list of names of Person objects
      */ // TODO
     public List<String> getNames() {
-        return null;
+        return people
+                .stream()
+                .map(Person :: getName)
+                .collect(Collectors.toList());
+
     }
 
 
@@ -88,6 +93,7 @@ public final class PersonWarehouse implements Iterable<Person> {
 
     // DO NOT MODIFY
     public Boolean contains(Person p) {
+
         return people.contains(p);
     }
 
