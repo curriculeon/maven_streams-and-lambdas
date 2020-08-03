@@ -58,7 +58,9 @@ public final class PersonFactory {
      */ // TODO
     public Person[] createPersonArray(int arrayLength) {
         List<Person> personList = createPersonList(arrayLength);
-        return personList.toArray(new Person[0]);
+        Person[] personArray = new Person[arrayLength];
+        return personList.toArray(personArray);
+        //return personList.toArray(new Person[0]);
         //return null;
     }
 
