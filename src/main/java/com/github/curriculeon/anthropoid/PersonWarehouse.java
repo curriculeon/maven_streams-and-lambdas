@@ -44,7 +44,7 @@ public final class PersonWarehouse implements Iterable<Person> {
      */ //TODO
     public Stream<Person> getUniquelyNamedPeople() {
         return people.stream()
-                     .filter(person -> Collections.frequency(getNames(), person.getName()) == 1);
+                     .filter(person -> Collections.frequency(getNames(), person.getName()) >= 1 );
     }
 
 
