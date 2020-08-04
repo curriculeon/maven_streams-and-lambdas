@@ -10,6 +10,10 @@ import java.util.stream.Stream;
 /**
  * Created by leon on 5/25/17.
  */
+
+/**
+ * TODO s implemented by Monica Deshmukh 8/3/2020
+ */
 public final class StreamConverter extends PersonConversionAgent<Stream<Person>> {
     private final List<Person> personList;
     public StreamConverter(Stream<Person> people) {
@@ -25,16 +29,16 @@ public final class StreamConverter extends PersonConversionAgent<Stream<Person>>
 
     // TODO
     public List<Person> toList() {
-        return null;
+        return personList;
     }
 
     // TODO
     public Stream<Person> toStream() {
-        return null;
+        return personList.stream();
     }
 
     // TODO
     public Person[] toArray() {
-        return null;
+        return personList.toArray(new Person[0]);
     }
 }
