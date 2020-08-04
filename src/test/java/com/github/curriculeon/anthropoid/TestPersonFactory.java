@@ -24,7 +24,7 @@ public class TestPersonFactory implements TestConstants {
 
     @Before
     public void setup() {
-        this.factory = new PersonFactory();
+        this.factory = PersonFactory.getInstance();
         this.warehouse = new PersonWarehouse();
 
         factory

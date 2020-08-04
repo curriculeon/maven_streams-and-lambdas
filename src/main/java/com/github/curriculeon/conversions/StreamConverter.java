@@ -11,6 +11,7 @@ import java.util.stream.Stream;
  * Created by leon on 5/25/17.
  */
 public final class StreamConverter extends PersonConversionAgent<Stream<Person>> {
+    private static PersonFactory personFactory = PersonFactory.getInstance();
     private final List<Person> personList;
     public StreamConverter(Stream<Person> people) {
         super(people);
@@ -19,22 +20,22 @@ public final class StreamConverter extends PersonConversionAgent<Stream<Person>>
 
     public StreamConverter(int collectionSize) {
         this(Stream
-                .generate(new PersonFactory()::createRandomPerson)
+                .generate(personFactory::createRandomPerson)
                 .limit(collectionSize));
     }
 
     // TODO
     public List<Person> toList() {
-        return null;
+        return toStream().collect(Collectors.toList());
     }
 
     // TODO
     public Stream<Person> toStream() {
-        return null;
+        return super.objectSequence;
     }
 
     // TODO
     public Person[] toArray() {
-        return null;
+        return toStream().toArray(Person[]::new);
     }
 }
