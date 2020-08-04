@@ -3,6 +3,8 @@ package com.github.curriculeon.conversions;
 import com.github.curriculeon.anthropoid.Person;
 import com.github.curriculeon.anthropoid.PersonFactory;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -23,12 +25,14 @@ public final class ArrayConverter extends PersonConversionAgent<Person[]> {
 
     //TODO
     public List<Person> toList() {
-        return null;
+
+        return Arrays.asList(this.toArray());
     }
 
     //TODO
     public Stream<Person> toStream() {
-        return null;
+
+        return Arrays.stream(this.toArray());
     }
 
     @Override
