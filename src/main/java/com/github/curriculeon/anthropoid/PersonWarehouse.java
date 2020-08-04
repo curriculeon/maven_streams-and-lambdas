@@ -4,10 +4,8 @@ import com.github.curriculeon.tools.logging.LoggerHandler;
 import com.github.curriculeon.tools.logging.LoggerWarehouse;
 import com.github.curriculeon.tools.ReflectionUtils;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -35,7 +33,11 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return list of names of Person objects
      */ // TODO
     public List<String> getNames() {
-        return null;
+
+        return people.
+                stream()
+                .map(Person::getName)
+                .collect(Collectors.toList());
     }
 
 
@@ -43,8 +45,17 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return list of uniquely named Person objects
      */ //TODO
     public Stream<Person> getUniquelyNamedPeople() {
-        return null;
+
+
+        //RETURNS ALL -- Will revisit
+        return people
+                .stream()
+                // .filter(Person -> Person.getName())
+                .distinct()
+                ;
+
     }
+
 
 
     /**
@@ -52,7 +63,10 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return a Stream of respective
      */ //TODO
     public Stream<Person> getUniquelyNamedPeopleStartingWith(Character character) {
-        return null;
+
+        return getUniquelyNamedPeople()
+               .filter(Person -> Person.getName()
+                       .startsWith(String.valueOf(character)));
     }
 
     /**
@@ -60,7 +74,8 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return a Stream of respective
      */ //TODO
     public Stream<Person> getFirstNUniquelyNamedPeople(int n) {
-        return null;
+        return getUniquelyNamedPeople()
+                        .limit(n);
     }
 
     /**
@@ -85,6 +100,9 @@ public final class PersonWarehouse implements Iterable<Person> {
     public Stream<String> getAllAliases() {
         return null;
     }
+
+
+
 
     // DO NOT MODIFY
     public Boolean contains(Person p) {
