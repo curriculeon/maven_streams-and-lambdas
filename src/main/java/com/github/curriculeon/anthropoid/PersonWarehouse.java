@@ -4,10 +4,7 @@ import com.github.curriculeon.tools.logging.LoggerHandler;
 import com.github.curriculeon.tools.logging.LoggerWarehouse;
 import com.github.curriculeon.tools.ReflectionUtils;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -17,6 +14,11 @@ import java.util.stream.Stream;
  *
  * @ATTENTION_TO_STUDENTS You are FORBIDDEN from using loops of any sort within the definition of this class.
  */
+
+/**
+ * TODO s implemented by Monica Deshmukh 8/3/2020
+ */
+
 public final class PersonWarehouse implements Iterable<Person> {
     private final LoggerHandler loggerHandler = LoggerWarehouse.getLogger(PersonWarehouse.class);
     private final List<Person> people = new ArrayList<>();
@@ -45,8 +47,18 @@ public final class PersonWarehouse implements Iterable<Person> {
     /**
      * @return list of uniquely named Person objects
      */ //TODO
+    //convert the List to HashSet. Hashset does not allow duplicate values.
     public Stream<Person> getUniquelyNamedPeople() {
-        return null;
+        /*List<String> names = this.getNames();
+        HashSet<String> uniqueNames = new HashSet<>(names);
+        Stream<String> uniqueNamesStream = uniqueNames.stream();
+        One liner for the above code is as follows*/
+        Stream<String> uniqueNamesStream = new HashSet<>(this.getNames()).stream();
+        Stream<Person> peopleWithUniqueNames = people
+                                             .stream()
+                                             .filter(person -> person.getName().equals(uniqueNamesStream));
+        return peopleWithUniqueNames;
+        //return null;
     }
 
 
@@ -55,7 +67,10 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return a Stream of respective
      */ //TODO
     public Stream<Person> getUniquelyNamedPeopleStartingWith(Character character) {
-        return null;
+        Stream<Person> peopleWithUniqueNames = this.getUniquelyNamedPeople();
+
+        return peopleWithUniqueNames
+                .filter(person -> person.getName().charAt(0) == character);
     }
 
     /**
@@ -63,14 +78,21 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return a Stream of respective
      */ //TODO
     public Stream<Person> getFirstNUniquelyNamedPeople(int n) {
-        return null;
+        Stream<Person> peopleWithUniqueNames = this.getUniquelyNamedPeople();
+        return peopleWithUniqueNames.limit(n);
     }
 
     /**
      * @return a mapping of Person Id to the respective Person name
      */ // TODO
+    //Collect stream elements into Map using Collectors.toMap() and Collectors.groupingBy() methods
+    //using Java 8 Stream APIs. Convert stream to map using Java stream APIs.
+    //If the stream elements have the unique map key field then we can use Collectors.toMap()
+    // to collect elements to map in Map<keyObj, Element> format
     public Map<Long, String> getIdToNameMap() {
-        return null;
+       Map<Long, String> idToNameMap = people.stream()
+                                        .collect(Collectors.toMap(Person::getPersonalId, Person::getName));
+       return idToNameMap;
     }
 
 
@@ -78,7 +100,8 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return Stream of Stream of Aliases
      */ // TODO
     public Stream<Stream<String>> getNestedAliases() {
-        return null;
+        Stream<String> streamOfAliases = this.getAllAliases();
+        return Stream.of(streamOfAliases);
     }
 
 
