@@ -43,10 +43,10 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return list of uniquely named Person objects
      */ //TODO
     public Stream<Person> getUniquelyNamedPeople() {
-        List<Person> tempArray = new ArrayList<>();
+        List<Person> tempList = new ArrayList<>();
         List<String> names = getNames();
-        people.stream().filter(person -> Collections.frequency(names,person.getName()) ==1 ).forEach(tempArray::add);
-        return  tempArray.stream();
+        people.stream().filter(person -> Collections.frequency(names,person.getName()) ==1 ).forEach(tempList::add);
+        return  tempList.stream();
     }
 
 
@@ -65,6 +65,7 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return a Stream of respective
      */ //TODO
     public Stream<Person> getFirstNUniquelyNamedPeople(int n) {
+
         List<Person> tempList = new ArrayList<>();
         getUniquelyNamedPeople().limit(n).forEach(tempList:: add);
         return tempList.stream();
