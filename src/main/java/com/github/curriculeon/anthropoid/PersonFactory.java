@@ -5,6 +5,7 @@ import com.github.curriculeon.tools.StringUtils;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -38,7 +39,11 @@ public final class PersonFactory {
      * @return - ArrayList of Person objects
      */ // TODO
     public List<Person> createPersonList(int listSize) {
-        return null;
+        List<Person> personList = Stream
+                                .generate(this::createRandomPerson)
+                                .limit(listSize)
+                                .collect(Collectors.toList());
+        return personList;
     }
 
 
