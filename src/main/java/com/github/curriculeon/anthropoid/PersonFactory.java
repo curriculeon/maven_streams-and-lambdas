@@ -1,5 +1,7 @@
 package com.github.curriculeon.anthropoid;
 
+import com.github.curriculeon.conversions.ArrayConverter;
+import com.github.curriculeon.conversions.ListConverter;
 import com.github.curriculeon.tools.RandomUtils;
 import com.github.curriculeon.tools.StringUtils;
 
@@ -48,6 +50,8 @@ public final class PersonFactory {
         List<Person> personList = createPersonStream(listSize)
                                 .collect(Collectors.toList());
         return personList;
+
+        //return new ListConverter(listSize).toList();
         //return null;
     }
 
@@ -60,6 +64,9 @@ public final class PersonFactory {
         List<Person> personList = createPersonList(arrayLength);
         Person[] personArray = new Person[arrayLength];
         return personList.toArray(personArray);
+
+        //using arrayconvertor
+        //return (new ArrayConverter(arrayLength)).toArray();
         //return personList.toArray(new Person[0]);
         //return null;
     }
