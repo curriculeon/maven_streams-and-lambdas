@@ -54,9 +54,11 @@ public final class PersonWarehouse implements Iterable<Person> {
      */ //TODO
     public Stream<Person> getUniquelyNamedPeople() {
         Stream<Person> streamOfUniqueNames;
+
+        //people.stream().map(person -> person.getName()).distinct().map;
         streamOfUniqueNames = people
-                                .stream()
-                                .filter(distinctByKey(person -> person.getName()));
+                               .stream()
+                               .filter(distinctByKey(person -> person.getName()));
 
         return streamOfUniqueNames;
     }
