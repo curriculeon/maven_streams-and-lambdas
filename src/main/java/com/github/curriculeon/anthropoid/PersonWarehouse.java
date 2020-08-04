@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -35,7 +36,12 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return list of names of Person objects
      */ // TODO
     public List<String> getNames() {
-        return null;
+        List<String> names = people
+                                .stream()
+                                .map(person -> person.getName())
+                                .collect(Collectors.toList());
+
+        return names;
     }
 
 
@@ -67,7 +73,11 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return a mapping of Person Id to the respective Person name
      */ // TODO
     public Map<Long, String> getIdToNameMap() {
-        return null;
+        Map<Long, String> idToNameMap;
+        idToNameMap = this.people
+                            .stream()
+                            .collect(Collectors.toMap(Person::getPersonalId, Person::getName));
+        return idToNameMap;
     }
 
 
