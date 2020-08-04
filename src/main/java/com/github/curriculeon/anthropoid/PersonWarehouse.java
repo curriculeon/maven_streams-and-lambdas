@@ -11,6 +11,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import java.util.function.Predicate;
+import java.util.function.Function;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * Created by leon on 5/29/17.
  * The warehouse is responsible for storing, retrieving, and filtering personSequence
@@ -49,16 +53,32 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return list of uniquely named Person objects
      */ //TODO
     public Stream<Person> getUniquelyNamedPeople() {
-        return null;
+        Stream<Person> streamOfUniqueNames;
+        streamOfUniqueNames = people
+                                .stream()
+                                .filter(distinctByKey(person -> person.getName()));
+
+        return streamOfUniqueNames;
     }
 
+    /**
+     * Ghassan Nasr copied this function from https://howtodoinjava.com/java8/java-stream-distinct-examples/
+     * @param keyExtractor
+     * @param <T>
+     * @return
+     */
+    public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor)
+    {
+        Map<Object, Boolean> map = new ConcurrentHashMap<>();
+        return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+    }
 
     /**
      * @param character starting character of Person objects' name
      * @return a Stream of respective
      */ //TODO
     public Stream<Person> getUniquelyNamedPeopleStartingWith(Character character) {
-        return null;
+        return getUniquelyNamedPeople().filter(person -> person.getName().startsWith(Character.toString(character)));
     }
 
     /**
@@ -66,7 +86,7 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return a Stream of respective
      */ //TODO
     public Stream<Person> getFirstNUniquelyNamedPeople(int n) {
-        return null;
+        return getUniquelyNamedPeople().limit(n);
     }
 
     /**
