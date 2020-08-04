@@ -5,6 +5,8 @@ import com.github.curriculeon.tools.StringUtils;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -36,18 +38,18 @@ public final class PersonFactory {
      *
      * @param listSize - number of Person objects to create
      * @return - ArrayList of Person objects
-     */ // TODO
+     */
     public List<Person> createPersonList(int listSize) {
-        return null;
+        return IntStream.range(0, listSize).boxed().map(value -> createRandomPerson()).collect(Collectors.toList());
     }
 
 
     /**
      * @param arrayLength - number of Person objects to create
      * @return - Array of Person objects
-     */ // TODO
+     */
     public Person[] createPersonArray(int arrayLength) {
-        return null;
+        return createPersonList(arrayLength).toArray(Person[]::new);
     }
 
 
@@ -56,8 +58,8 @@ public final class PersonFactory {
      *
      * @param streamCount - number of Person objects to create
      * @return - Stream representation of collection of Person objects
-     */ // TODO
+     */
     public Stream<Person> createPersonStream(int streamCount) {
-        return null;
+        return createPersonList(streamCount).stream();
     }
 }
