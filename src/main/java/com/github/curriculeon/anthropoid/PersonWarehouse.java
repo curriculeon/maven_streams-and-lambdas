@@ -4,11 +4,12 @@ import com.github.curriculeon.tools.logging.LoggerHandler;
 import com.github.curriculeon.tools.logging.LoggerWarehouse;
 import com.github.curriculeon.tools.ReflectionUtils;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.*;
+
 
 /**
  * Created by leon on 5/29/17.
@@ -35,7 +36,8 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return list of names of Person objects
      */ // TODO
     public List<String> getNames() {
-        return null;
+        List<String> listOfNames = people.stream().map(Person::getName).collect(Collectors.toList());
+        return listOfNames;
     }
 
 
@@ -43,7 +45,8 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return list of uniquely named Person objects
      */ //TODO
     public Stream<Person> getUniquelyNamedPeople() {
-        return null;
+        Stream<Person> personList = people.stream().filter(person -> Collections.frequency(getNames(), person.getName()) == 1);
+        return personList;
     }
 
 
@@ -67,7 +70,8 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return a mapping of Person Id to the respective Person name
      */ // TODO
     public Map<Long, String> getIdToNameMap() {
-        return null;
+        Map<Long, String> personAndKeyMap = people.stream().collect(Collectors.toMap(Person::getPersonalId, Person::getName));
+        return personAndKeyMap;
     }
 
 
