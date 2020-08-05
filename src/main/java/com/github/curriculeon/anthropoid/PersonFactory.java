@@ -3,8 +3,11 @@ package com.github.curriculeon.anthropoid;
 import com.github.curriculeon.tools.RandomUtils;
 import com.github.curriculeon.tools.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -13,8 +16,13 @@ import java.util.stream.Stream;
  * @ATTENTION_TO_STUDENTS You are FORBIDDEN from using loops of any sort within the definition of this class.
  */
 public final class PersonFactory {
-    public PersonFactory() {
+    private static PersonFactory instance = new PersonFactory();
+    private PersonFactory() {
         /** this class is not to be instantiated */
+    }
+
+    public static PersonFactory getInstance() {
+        return instance;
     }
 
     /**
@@ -38,7 +46,9 @@ public final class PersonFactory {
      * @return - ArrayList of Person objects
      */ // TODO
     public List<Person> createPersonList(int listSize) {
-        return null;
+        return Stream.generate(this::createRandomPerson)
+                     .limit(listSize)
+                     .collect(Collectors.toList());
     }
 
 
@@ -47,7 +57,9 @@ public final class PersonFactory {
      * @return - Array of Person objects
      */ // TODO
     public Person[] createPersonArray(int arrayLength) {
-        return null;
+        return Stream.generate(this::createRandomPerson)
+                     .limit(arrayLength)
+                     .toArray(Person[]::new);
     }
 
 
@@ -58,6 +70,6 @@ public final class PersonFactory {
      * @return - Stream representation of collection of Person objects
      */ // TODO
     public Stream<Person> createPersonStream(int streamCount) {
-        return null;
+        return createPersonList(streamCount).stream();
     }
 }

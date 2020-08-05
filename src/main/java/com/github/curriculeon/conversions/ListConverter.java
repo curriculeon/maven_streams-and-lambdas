@@ -11,13 +11,15 @@ import java.util.stream.Stream;
  * Created by leon on 5/25/17.
  */
 public final class ListConverter extends PersonConversionAgent<List<Person>> {
+    private static PersonFactory personFactory = PersonFactory.getInstance();
+
     public ListConverter(List<Person> people) {
         super(people);
     }
 
     public ListConverter(int collectionSize) {
         this(Stream
-                .generate(new PersonFactory()::createRandomPerson)
+                .generate(personFactory::createRandomPerson)
                 .limit(collectionSize)
                 .collect(Collectors.toList()));
     }
@@ -29,11 +31,11 @@ public final class ListConverter extends PersonConversionAgent<List<Person>> {
 
     //TODO
     public Stream<Person> toStream() {
-        return null;
+        return toList().stream();
     }
 
     //TODO
     public Person[] toArray() {
-        return null;
+        return toList().stream().toArray(Person[]::new);
     }
 }
