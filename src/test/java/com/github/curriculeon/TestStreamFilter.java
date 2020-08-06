@@ -42,6 +42,7 @@ public class TestStreamFilter {
 
 
     private void testFilter(Person[] persons) {
+
         testFilter(Arrays.asList(persons));
     }
 
