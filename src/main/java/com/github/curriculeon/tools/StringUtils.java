@@ -10,7 +10,7 @@ public class StringUtils {
      * @return - input String with first character capitalized
      */
     public static String capitalizeFirstChar(String string) {
-        String firstChar = new Character(string.charAt(0)).toString();
+        String firstChar = Character.toString(string.charAt(0));
         return string.replaceFirst(firstChar, firstChar.toUpperCase());
     }
 
