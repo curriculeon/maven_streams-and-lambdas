@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.Arrays;
 
 import java.util.function.Predicate;
 import java.util.function.Function;
@@ -55,7 +56,6 @@ public final class PersonWarehouse implements Iterable<Person> {
     public Stream<Person> getUniquelyNamedPeople() {
         Stream<Person> streamOfUniqueNames;
 
-        //people.stream().map(person -> person.getName()).distinct().map;
         streamOfUniqueNames = people
                                .stream()
                                .filter(distinctByKey(person -> person.getName()));
@@ -69,8 +69,7 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @param <T>
      * @return
      */
-    public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor)
-    {
+    public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
         Map<Object, Boolean> map = new ConcurrentHashMap<>();
         return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
@@ -107,7 +106,9 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return Stream of Stream of Aliases
      */ // TODO
     public Stream<Stream<String>> getNestedAliases() {
-        return null;
+        return people.stream()
+                .map(person -> person.getAliases())
+                .map(arrayOfAliases -> Arrays.stream(arrayOfAliases));
     }
 
 
@@ -115,7 +116,9 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return Stream of all Aliases
      */ // TODO
     public Stream<String> getAllAliases() {
-        return null;
+        return people.stream()
+                .map(person -> person.getAliases())
+                .flatMap(arrayOfAliases -> Arrays.stream(arrayOfAliases));
     }
 
     // DO NOT MODIFY
