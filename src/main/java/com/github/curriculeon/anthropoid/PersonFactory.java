@@ -1,5 +1,8 @@
 package com.github.curriculeon.anthropoid;
 
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import com.github.curriculeon.tools.RandomUtils;
 import com.github.curriculeon.tools.StringUtils;
 
@@ -38,7 +41,14 @@ public final class PersonFactory {
      * @return - ArrayList of Person objects
      */ // TODO
     public List<Person> createPersonList(int listSize) {
-        return null;
+        //return null;
+
+
+        //created a stream of size listSize where Objects are of type Person
+
+        List<Person> personList = createPersonStream(listSize)
+                .collect(Collectors.toList());
+        return personList;
     }
 
 
@@ -47,7 +57,10 @@ public final class PersonFactory {
      * @return - Array of Person objects
      */ // TODO
     public Person[] createPersonArray(int arrayLength) {
-        return null;
+        List<Person> personList = createPersonList(arrayLength);
+        Person[] personArray = new Person[arrayLength];
+        return personList.toArray(personArray);
+        //return null;
     }
 
 
@@ -57,7 +70,12 @@ public final class PersonFactory {
      * @param streamCount - number of Person objects to create
      * @return - Stream representation of collection of Person objects
      */ // TODO
-    public Stream<Person> createPersonStream(int streamCount) {
-        return null;
+    public Stream<Person> createPersonStream(int streamCount)
+    {
+        Stream personStream = IntStream
+                .range(0, streamCount)
+                .mapToObj(x -> createRandomPerson());
+        return personStream;
+        //return null;
     }
 }
