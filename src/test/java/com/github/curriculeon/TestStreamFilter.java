@@ -44,7 +44,6 @@ public class TestStreamFilter {
     private void testFilter(Person[] persons) {
         testFilter(Arrays.asList(persons));
     }
-
     private void testFilter(List<Person> persons) {
         for (Person p : persons) {
             assert (StringUtils.isPalindromeIgnoreCase(p.getName()));

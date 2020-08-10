@@ -1,8 +1,11 @@
 package com.github.curriculeon;
 
 import com.github.curriculeon.anthropoid.Person;
+import com.github.curriculeon.anthropoid.PersonFactory;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -16,7 +19,11 @@ public class StreamFilter {
      * No arg constructor
      */ //TODO - construct person stream of 100 person objects; startingCharacter is a random capital letter
     public StreamFilter() {
-        this(Stream.empty(), null);
+        PersonFactory personFactory = new PersonFactory();
+        this.personStream = personFactory.createPersonStream(100);
+        char randomChar = (char)((int)'A'+Math.random()*((int)'Z'-(int)'A'+1));
+        this.startingCharacter = Character.toString(randomChar);
+        //this(Stream.empty(), null);
     }
 
     /**
@@ -24,26 +31,22 @@ public class StreamFilter {
      * @param startingCharacter - character to filter by
      */ //TODO
     public StreamFilter(Person[] people, Character startingCharacter) {
-        this(Stream.empty(), null);
+        List<Person> personList = Arrays.asList(people);
+        this.personStream = personList.stream();
+        this.startingCharacter = startingCharacter.toString();
+        //this(personList, startingCharacter);
     }
 
     /**
      * @param people - List of person objects
      * @param startingCharacter - character to filter by
      */ //TODO
-    public StreamFilter(List<Person> people, Character startingCharacter) {
-        this(Stream.empty(), null);
-    }
+    //public StreamFilter(List<Person> people, Character startingCharacter) {
+      //  this(Stream.empty(), null);
+    //}
 
 
-    /**
-     * @param people - Stream of person objects
-     * @param startingCharacter - character to filter by
-     */ // I took care of the easy constructor (͡° ͜ʖ ͡°)
-    public StreamFilter(Stream<Person> people, Character startingCharacter) {
-        this.personStream = people;
-        this.startingCharacter = startingCharacter.toString();
-    }
+
 
 
     /**
@@ -51,7 +54,11 @@ public class StreamFilter {
      * @return a list of person object whose name starts with `this.startingCharacter`
      */ //TODO
     public List<Person> toListMultiLine() {
-        return null;
+        List<Person> listOfNamesWithStartingCharacter;
+        listOfNamesWithStartingCharacter = this.personStream
+                                            .filter(person -> person.getName().startsWith(this.startingCharacter))
+                                            .collect(Collectors.toList());
+        return listOfNamesWithStartingCharacter;
     }
 
 
@@ -60,7 +67,12 @@ public class StreamFilter {
      * @return a list of person objects whose name starts with `this.startingCharacter`
      */ //TODO
     public List<Person> toListOneLine() {
-        return null;
+        List<Person> listOfPersons;
+        listOfPersons = this.personStream
+                            .filter(person -> person.getName().startsWith(this.startingCharacter))
+                            .collect(Collectors.toList());
+
+        return listOfPersons;
     }
 
 
@@ -69,7 +81,11 @@ public class StreamFilter {
      * @return an array of person object whose name starts with `this.startingCharacter`
      */ //TODO
     public Person[] toArrayOneLine() {
-        return null;
+        Person[] arrayOfPersons;
+        arrayOfPersons = this.personStream
+                                .filter(person -> person.getName().startsWith(this.startingCharacter))
+                                .toArray(Person[]::new);
+        return arrayOfPersons;
     }
 
 
@@ -78,7 +94,11 @@ public class StreamFilter {
      * @return an array of person object whose name starts with `this.startingCharacter`
      */ //TODO
     public Person[] toArrayMultiLine() {
-        return null;
+        Person[] arrayOfPersons;
+        arrayOfPersons = this.personStream
+                .filter(person -> person.getName().startsWith(this.startingCharacter))
+                .toArray(Person[]::new);
+        return arrayOfPersons;
     }
 
 }
