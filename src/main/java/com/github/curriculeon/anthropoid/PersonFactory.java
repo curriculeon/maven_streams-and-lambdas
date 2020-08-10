@@ -5,6 +5,7 @@ import com.github.curriculeon.tools.StringUtils;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -32,13 +33,25 @@ public final class PersonFactory {
     }
 
     /**
+     * Section 8.2
+     *
+     * @param streamCount - number of Person objects to create
+     * @return - Stream representation of collection of Person objects
+     */ // TODO
+    public Stream<Person> createPersonStream(int streamCount) {
+        return Stream
+                .generate(this::createRandomPerson)
+                .limit(streamCount);
+    }
+
+    /**
      * Section 8.8
      *
      * @param listSize - number of Person objects to create
      * @return - ArrayList of Person objects
      */ // TODO
     public List<Person> createPersonList(int listSize) {
-        return null;
+        return createPersonStream(listSize).collect(Collectors.toList());
     }
 
 
@@ -47,17 +60,7 @@ public final class PersonFactory {
      * @return - Array of Person objects
      */ // TODO
     public Person[] createPersonArray(int arrayLength) {
-        return null;
+        return createPersonList(arrayLength).toArray(new Person[arrayLength]);
     }
 
-
-    /**
-     * Section 8.2
-     *
-     * @param streamCount - number of Person objects to create
-     * @return - Stream representation of collection of Person objects
-     */ // TODO
-    public Stream<Person> createPersonStream(int streamCount) {
-        return null;
-    }
 }
