@@ -1,5 +1,6 @@
 package com.github.curriculeon;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 /**
@@ -12,7 +13,7 @@ public class StreamMap {
      * @return - a Stream of single characters
      */ //TODO
     public static Stream<String> letters(String someWord) {
-        return null;
+        return Arrays.stream(someWord.split(""));
     }
 
     /**
