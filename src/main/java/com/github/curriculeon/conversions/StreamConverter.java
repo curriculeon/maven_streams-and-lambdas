@@ -3,6 +3,7 @@ package com.github.curriculeon.conversions;
 import com.github.curriculeon.anthropoid.Person;
 import com.github.curriculeon.anthropoid.PersonFactory;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -11,11 +12,10 @@ import java.util.stream.Stream;
  * Created by leon on 5/25/17.
  */
 public final class StreamConverter extends PersonConversionAgent<Stream<Person>> {
-    private final List<Person> list;
-
+    private final List<Person> personList;
     public StreamConverter(Stream<Person> people) {
         super(people);
-        this.list = people.collect(Collectors.toList());
+        this.personList = super.objectSequence.collect(Collectors.toList());
     }
 
     public StreamConverter(int collectionSize) {
@@ -26,7 +26,7 @@ public final class StreamConverter extends PersonConversionAgent<Stream<Person>>
 
     // TODO
     public List<Person> toList() {
-        return list;
+        return Arrays.asList(toArray());
     }
 
     // TODO
