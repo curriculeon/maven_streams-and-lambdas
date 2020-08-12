@@ -6,8 +6,6 @@ import com.github.curriculeon.tools.RandomUtils;
 
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -23,9 +21,9 @@ public class StreamFilter {
      */ //TODO - construct person stream of 100 person objects; startingCharacter is a random capital letter
     public StreamFilter() {
         this(Stream
-                .generate(new PersonFactory()::createRandomPerson)
-                .limit(100),
-                RandomUtils.createCharacter('A', 'Z'));
+                        .generate(new PersonFactory()::createRandomPerson)
+                        .limit(100),
+                RandomUtils.createCharacter('A','Z'));
     }
 
     /**
@@ -61,9 +59,9 @@ public class StreamFilter {
      */ //TODO
     public List<Person> toListMultiLine() {
         Predicate<Person> filterClause = person -> person.getName().startsWith(this.startingCharacter);
-        Stream<Person> filteredStream = personStream.filter(filterClause);
-        List<Person> filteredList = filteredStream.collect(Collectors.toList());
-        return filteredList;
+        Stream<Person> filterStream = personStream.filter(filterClause);
+        List<Person>  filterPerson = filterStream.collect(Collectors.toList());
+        return filterPerson;
     }
 
 
@@ -95,9 +93,9 @@ public class StreamFilter {
      */ //TODO
     public Person[] toArrayMultiLine() {
         Predicate<Person> filterClause = person -> person.getName().startsWith(this.startingCharacter);
-        Stream<Person> filteredStream = personStream.filter(filterClause);
-        Person[] filteredArray= filteredStream.toArray(Person[]::new);
-        return filteredArray;
+        Stream<Person> filterStream = personStream.filter(filterClause);
+        Person[] filterArray = filterStream.toArray(Person[]::new);
+        return filterArray;
     }
 
 }

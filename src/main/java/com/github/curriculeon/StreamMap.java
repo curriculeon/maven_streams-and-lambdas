@@ -21,10 +21,8 @@ public class StreamMap {
      * @return - a Stream of several Streams of single characters
      */ //TODO
     public static Stream<Stream<String>> wordsMap(String... someWords) {
-        return Arrays
-                .asList(someWords)
-                .stream()
-                .map(str -> letters(str));
+        return Arrays.asList(someWords)
+                .stream().map(str -> letters(str));
     }
 
     /**
@@ -32,9 +30,7 @@ public class StreamMap {
      * @return - a Stream of several Streams of single characters
      */ //TODO
     public static Stream<String> wordsFlatMap(String... stringArray) {
-        return Arrays
-                .asList(stringArray)
-                .stream()
+        return Arrays.asList(stringArray).stream()
                 .flatMap(str -> letters(str));
     }
 }
