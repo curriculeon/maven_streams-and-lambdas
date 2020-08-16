@@ -9,7 +9,8 @@ import com.github.curriculeon.anthropoid.Person;
  * @ATTENTION_TO_STUDENTS You are FORBIDDEN from modifying this class
  */
 abstract public class PersonConversionAgent<ObjectSequentDataType> extends ConversionAgent<ObjectSequentDataType, Person> {
-    public PersonConversionAgent(ObjectSequentDataType personObjectSequence) {
+    public PersonConversionAgent(ObjectSequentDataType personObjectSequence)
+    {
         super(personObjectSequence);
     }
 }

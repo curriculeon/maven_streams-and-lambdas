@@ -32,7 +32,8 @@ public class StringUtils {
      * @param n the padding amount
      * @return the padded-left String
      */
-    public static String padLeft(Object s, int n) {
+    public static String padLeft(Object s, int n)
+    {
         return String.format("%1$" + n + "s", s);
     }
 
@@ -42,7 +43,8 @@ public class StringUtils {
      * @param n the padding amount
      * @return the padded-left String
      */
-    public static String padRight(String s, int n) {
+    public static String padRight(String s, int n)
+    {
         return padLeft(s, -n);
     }
 
@@ -50,7 +52,8 @@ public class StringUtils {
      * @param str string to check
      * @return true if `str` is a palindrome
      */
-    public static boolean isPalindromeIgnoreCase(String str) {
+    public static boolean isPalindromeIgnoreCase(String str)
+    {
         return new StringBuilder(str).reverse().toString().equalsIgnoreCase(str);
     }
 }

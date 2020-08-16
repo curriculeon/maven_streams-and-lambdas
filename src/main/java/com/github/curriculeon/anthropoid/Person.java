@@ -29,27 +29,33 @@ public class Person implements Comparable<Person> {
         this.aliases = aliases;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public int getAge() {
+    public int getAge()
+    {
         return age;
     }
 
-    public boolean isMale() {
+    public boolean isMale()
+    {
         return isMale;
     }
 
-    public long getPersonalId() {
+    public long getPersonalId()
+    {
         return personalId;
     }
 
-    public Date getBirthDate() {
+    public Date getBirthDate()
+    {
         return birthDate;
     }
 
-    public String[] getAliases() {
+    public String[] getAliases()
+    {
         return aliases;
     }
 
@@ -65,7 +71,8 @@ public class Person implements Comparable<Person> {
     }
 
     @Override // implemented for sorting purposes
-    public int compareTo(Person o) {
+    public int compareTo(Person o)
+    {
         return o.toString().compareTo(this.toString());
     }
 }

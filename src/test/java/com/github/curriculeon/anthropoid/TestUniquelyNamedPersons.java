@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.Collections;
 
 /**
  * @author leon on 08/10/2018.
@@ -82,7 +83,7 @@ public class TestUniquelyNamedPersons {
         List<String> expectedList = new ArrayList<>();
         for (Person person : warehouse) {
             String personName = person.getName();
-            Boolean isUnique = !expectedList.contains(personName);
+            Boolean isUnique = Collections.frequency(warehouse.getNames(), personName) == 1;
             if (isUnique) {
                 expectedList.add(personName);
             }

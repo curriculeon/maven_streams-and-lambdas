@@ -4,10 +4,7 @@ import com.github.curriculeon.tools.logging.LoggerHandler;
 import com.github.curriculeon.tools.logging.LoggerWarehouse;
 import com.github.curriculeon.tools.ReflectionUtils;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+
 import java.util.*;
 import java.util.stream.Stream;
 import java.util.stream.Collectors;
@@ -38,8 +35,10 @@ public final class PersonWarehouse implements Iterable<Person> {
      */ // TODO
     public List<String> getNames() {
         //return null;
-        Stream<String> streamOfNames = people.stream().map(Person::getName);
-        return  streamOfNames.collect(Collectors.toList());
+        return people
+                .stream()
+                .map(Person::getName)
+                .collect(Collectors.toList());
     }
 
 
@@ -48,11 +47,9 @@ public final class PersonWarehouse implements Iterable<Person> {
      */ //TODO
     public Stream<Person> getUniquelyNamedPeople() {
         //return null;
-        Stream<String> uniqueNamesStream = new HashSet<>(this.getNames()).stream();
-        Stream<Person> peopleWithUniqueNames = people
+        return people
                 .stream()
-                .filter(person -> person.getName().equals(uniqueNamesStream));
-        return peopleWithUniqueNames;
+                .filter(person -> Collections.frequency(getNames(), person.getName()) == 1); // white-label people whose name occurs exactly once
     }
 
 
@@ -64,8 +61,8 @@ public final class PersonWarehouse implements Iterable<Person> {
         //return null;
         Stream<Person> peopleWithUniqueNames = this.getUniquelyNamedPeople();
 
-        return peopleWithUniqueNames
-                .filter(person -> person.getName().charAt(0) == character);
+        return getUniquelyNamedPeople()
+                .filter(person -> person.getName().startsWith(character.toString()));
     }
 
     /**
@@ -73,9 +70,8 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return a Stream of respective
      */ //TODO
     public Stream<Person> getFirstNUniquelyNamedPeople(int n) {
-       // return null;
-        Stream<Person> peopleWithUniqueNames = this.getUniquelyNamedPeople();
-        return peopleWithUniqueNames.limit(n);
+       return null;
+
     }
 
     /**
@@ -83,9 +79,10 @@ public final class PersonWarehouse implements Iterable<Person> {
      */ // TODO
     public Map<Long, String> getIdToNameMap() {
         //return null;
-        Map<Long, String> idToNameMap = people.stream()
+        return people
+                .stream()
                 .collect(Collectors.toMap(Person::getPersonalId, Person::getName));
-        return idToNameMap;
+
     }
 
 
@@ -93,9 +90,8 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return Stream of Stream of Aliases
      */ // TODO
     public Stream<Stream<String>> getNestedAliases() {
-        //return null;
-        Stream<String> streamOfAliases = this.getAllAliases();
-        return Stream.of(streamOfAliases);
+        return null;
+
     }
 
 
@@ -104,11 +100,8 @@ public final class PersonWarehouse implements Iterable<Person> {
      */ // TODO
     public Stream<String> getAllAliases() {
 
-        //return null;
-        String[] aliases = (String[])people
-                .stream()
-                .map(Person::getAliases).toArray();
-        return Stream.of(aliases);
+        return null;
+
     }
 
     // DO NOT MODIFY
@@ -117,17 +110,20 @@ public final class PersonWarehouse implements Iterable<Person> {
     }
 
     // DO NOT MODIFY
-    public void clear() {
+    public void clear()
+    {
         people.clear();
     }
 
     // DO NOT MODIFY
-    public int size() {
+    public int size()
+    {
         return people.size();
     }
 
     @Override // DO NOT MODIFY
-    public Iterator<Person> iterator() {
+    public Iterator<Person> iterator()
+    {
         return people.iterator();
     }
 }

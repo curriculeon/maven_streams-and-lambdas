@@ -19,6 +19,7 @@ public abstract class ConversionAgent<ObjectSequentDataType, TypeOfObjectSequenc
     protected ObjectSequentDataType objectSequence;
 
     public ConversionAgent(ObjectSequentDataType objectSequence) {
+
         this.objectSequence = objectSequence;
     }
 

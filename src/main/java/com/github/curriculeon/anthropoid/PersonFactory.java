@@ -35,20 +35,25 @@ public final class PersonFactory {
     }
 
     /**
+     * Section 8.2
+     *
+     * @param streamCount - number of Person objects to create
+     * @return - Stream representation of collection of Person objects
+     */ // TODO
+    public Stream<Person> createPersonStream(int streamCount) {
+        return Stream
+                .generate(this::createRandomPerson)
+                .limit(streamCount);
+    }
+
+    /**
      * Section 8.8
      *
      * @param listSize - number of Person objects to create
      * @return - ArrayList of Person objects
      */ // TODO
     public List<Person> createPersonList(int listSize) {
-        //return null;
-
-
-        //created a stream of size listSize where Objects are of type Person
-
-        List<Person> personList = createPersonStream(listSize)
-                .collect(Collectors.toList());
-        return personList;
+        return createPersonStream(listSize).collect(Collectors.toList());
     }
 
 
@@ -57,25 +62,6 @@ public final class PersonFactory {
      * @return - Array of Person objects
      */ // TODO
     public Person[] createPersonArray(int arrayLength) {
-        List<Person> personList = createPersonList(arrayLength);
-        Person[] personArray = new Person[arrayLength];
-        return personList.toArray(personArray);
-        //return null;
-    }
-
-
-    /**
-     * Section 8.2
-     *
-     * @param streamCount - number of Person objects to create
-     * @return - Stream representation of collection of Person objects
-     */ // TODO
-    public Stream<Person> createPersonStream(int streamCount)
-    {
-        Stream personStream = IntStream
-                .range(0, streamCount)
-                .mapToObj(x -> createRandomPerson());
-        return personStream;
-        //return null;
+        return createPersonList(arrayLength).toArray(new Person[arrayLength]);
     }
 }

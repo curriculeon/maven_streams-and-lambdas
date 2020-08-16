@@ -20,7 +20,8 @@ public class TestConversionAgent<T extends PersonConversionAgent<Person>> {
     private Person[] personArray;
     private Stream<Person> personStream;
 
-    public TestConversionAgent(T conversionAgent) {
+    public TestConversionAgent(T conversionAgent)
+    {
         this.conversionAgent = conversionAgent;
     }
 

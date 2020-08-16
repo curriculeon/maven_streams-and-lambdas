@@ -15,32 +15,39 @@ public final class RandomUtils {
     }
 
     /** @return true with the likelihood of specified percentage */
-    public static boolean createBoolean(float percentage) {
+    public static boolean createBoolean(float percentage)
+    {
         return percentage > createFloat(0, 100);
     }
 
     /** @return a random character between the specified min and max character range */
-    public static Character createCharacter(char min, char max) {
+
+    public static Character createCharacter(char min, char max)
+    {
         return (char) createInteger((int) min, (int) max).intValue();
     }
 
     /** @return a random double between the specified min and max numeric range */
-    public static Double createDouble(Double min, Double max) {
+    public static Double createDouble(Double min, Double max)
+    {
         return createFloat(min.floatValue(), max.floatValue()).doubleValue();
     }
 
     /** @return a random float between the specified min and max numeric range */
-    public static Float createFloat(float min, float max) {
+    public static Float createFloat(float min, float max)
+    {
         return random.nextFloat() * (max - min) + min;
     }
 
     /** @return a random integer between the specified min and max numeric range */
-    public static Integer createInteger(Integer min, Integer max) {
+    public static Integer createInteger(Integer min, Integer max)
+    {
         return createFloat(min, max).intValue();
     }
 
     /** @return a random long between the specified min and max numeric range */
-    public static Long createLong(Long min, Long max) {
+    public static Long createLong(Long min, Long max)
+    {
         return createFloat(min, max).longValue();
     }
 
@@ -71,7 +78,8 @@ public final class RandomUtils {
     }
 
     /** @return a random element from the sepcified array */
-    public static <E> E selectElement(E[] array) {
+    public static <E> E selectElement(E[] array)
+    {
         return array[createInteger(0, array.length - 1)];
     }
 
