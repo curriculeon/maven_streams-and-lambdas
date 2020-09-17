@@ -5,6 +5,7 @@ import com.github.curriculeon.tools.StringUtils;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -12,6 +13,8 @@ import java.util.stream.Stream;
  *
  * @ATTENTION_TO_STUDENTS You are FORBIDDEN from using loops of any sort within the definition of this class.
  */
+
+// PersonFactory - generates Person objects.
 public final class PersonFactory {
     public PersonFactory() {
         /** this class is not to be instantiated */
@@ -31,33 +34,39 @@ public final class PersonFactory {
         return randomPerson;
     }
 
-    /**
-     * Section 8.8
-     *
-     * @param listSize - number of Person objects to create
-     * @return - ArrayList of Person objects
-     */ // TODO
-    public List<Person> createPersonList(int listSize) {
-        return null;
-    }
-
-
-    /**
-     * @param arrayLength - number of Person objects to create
-     * @return - Array of Person objects
-     */ // TODO
-    public Person[] createPersonArray(int arrayLength) {
-        return null;
-    }
-
 
     /**
      * Section 8.2
      *
      * @param streamCount - number of Person objects to create
      * @return - Stream representation of collection of Person objects
-     */ // TODO
+     */
     public Stream<Person> createPersonStream(int streamCount) {
-        return null;
+        return Stream
+                .generate(this::createRandomPerson)
+                .limit(streamCount);
     }
+
+    /**
+     * Section 8.8
+     *
+     * @param listSize - number of Person objects to create
+     * @return - ArrayList of Person objects
+     */
+    public List<Person> createPersonList(int listSize) {
+        return createPersonStream(listSize).collect(Collectors.toList());
+    }
+
+
+    /**
+     * @param arrayLength - number of Person objects to create
+     * @return - Array of Person objects
+     */
+    public Person[] createPersonArray(int arrayLength) {
+        return createPersonList(arrayLength).toArray(new Person[arrayLength]);
+    }
+
 }
+
+
+

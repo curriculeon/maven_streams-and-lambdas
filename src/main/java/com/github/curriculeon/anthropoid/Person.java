@@ -12,7 +12,10 @@ import java.util.Date;
  *
  * @ATTENTION_TO_STUDENTS You are FORBIDDEN from modifying this class
  */
+//The Person class is a representation of a respective Person object.
+
 public class Person implements Comparable<Person> {
+
     private String name;
     private Integer age;
     private Boolean isMale;
