@@ -2,7 +2,6 @@ package com.github.curriculeon.conversions;
 
 import com.github.curriculeon.anthropoid.Person;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -11,41 +10,42 @@ import java.util.stream.Stream;
 
 /**
  * Created by leon on 5/25/17.
+ *
  * @ATTENTION_TO_STUDENTS You are FORBIDDEN from modifying this class
  */
-public class TestConversionAgent<T extends PersonConversionAgent<Person>> {
-    private final T conversionAgent;
+public interface TestConversionAgent<T extends PersonConversionAgent<Person>> {
+    T getConversionAgent();
 
-    private List<Person> personList;
-    private Person[] personArray;
-    private Stream<Person> personStream;
-
-    public TestConversionAgent(T conversionAgent) {
-        this.conversionAgent = conversionAgent;
+    default List<Person> getPersonList() {
+        return getConversionAgent().toList();
     }
 
-    @Before
-    public void setup() {
-        this.personStream = conversionAgent.toStream();
-        this.personList = conversionAgent.toList();
-        this.personArray = conversionAgent.toArray();
+    default Person[] getPersonArray() {
+        return getConversionAgent().toArray();
     }
+
+    default Stream<Person> getPersonStream() {
+        return getConversionAgent().toStream();
+    }
+
 
     @Test
-    public void testCount() {
-        int listSize = personList.size();
-        int arrayLength = personArray.length;
-        int streamCount = (int) personStream.count();
+    default void testCount() {
+        int listSize = getPersonList().size();
+        int arrayLength = getPersonArray().length;
+        int streamCount = (int) getPersonStream().count();
 
         Assert.assertEquals(listSize, arrayLength);
         Assert.assertEquals(listSize, streamCount);
     }
 
     @Test
-    public void testToList() {
-        for (int i = 0; i < personList.size(); i++) {
-            long listId = personList.get(i).getPersonalId();
-            long arrayId = personArray[i].getPersonalId();
+    default void testToList() {
+        List<Person> list = getPersonList();
+        Person[] array = getPersonArray();
+        for (int i = 0; i < list.size(); i++) {
+            long listId = list.get(i).getPersonalId();
+            long arrayId = array[i].getPersonalId();
 
             Assert.assertEquals(listId, arrayId);
         }
@@ -53,11 +53,12 @@ public class TestConversionAgent<T extends PersonConversionAgent<Person>> {
 
 
     @Test
-    public void testToStream() {
-        List<Person> people = personStream.collect(Collectors.toList());
+    default void testToStream() {
+        List<Person> people = getPersonStream().collect(Collectors.toList());
+        Person[] array = getPersonArray();
 
         for (int i = 0; i < people.size(); i++) {
-            long arrayId = personArray[i].getPersonalId();
+            long arrayId = array[i].getPersonalId();
             long streamId = people.get(i).getPersonalId();
 
             Assert.assertEquals(streamId, arrayId);
@@ -65,10 +66,13 @@ public class TestConversionAgent<T extends PersonConversionAgent<Person>> {
     }
 
     @Test
-    public void testToArray() {
-        for (int i = 0; i < personArray.length; i++) {
-            long arrayId = personArray[i].getPersonalId();
-            long listId = personList.get(i).getPersonalId();
+    default void testToArray() {
+        Person[] array = getPersonArray();
+        List<Person> list = getPersonList();
+
+        for (int i = 0; i < array.length; i++) {
+            long arrayId = array[i].getPersonalId();
+            long listId = list.get(i).getPersonalId();
 
             Assert.assertEquals(listId, arrayId);
         }

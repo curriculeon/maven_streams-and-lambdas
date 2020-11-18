@@ -1,6 +1,5 @@
 package com.github.curriculeon.anthropoid;
 
-import com.github.curriculeon.TestConstants;
 import com.github.curriculeon.tools.ReflectionUtils;
 import org.junit.Assert;
 import org.junit.Before;
