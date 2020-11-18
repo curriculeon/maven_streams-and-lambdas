@@ -17,9 +17,10 @@ import java.util.stream.Collectors;
  *
  * @ATTENTION_TO_STUDENTS You are FORBIDDEN from modifying this class
  */
-public class TestPersonFactory implements TestConstants {
+public class TestPersonFactory {
     private PersonWarehouse warehouse;
     private PersonFactory factory;
+    int collectionSize = 999;
 
     @Before
     public void setup() {
